@@ -1,4 +1,4 @@
-import { Grid, GridItem,HStack,Show } from '@chakra-ui/react'
+import { Grid, GridItem,HStack,Heading,Show } from '@chakra-ui/react'
 import Navbar from './components/Navigation/Navbar'
 import GameGrid from './components/GameGrid/GameGrid'
 import GenreList from './components/GenreList/GenreList'
@@ -13,6 +13,7 @@ function App() {
   const [selectedGenre,setSelectedGenre]=useState<Genre | null>(null)
   const [selectedPlatform, setSelectedPlatform]=useState<Platform | null>(null)
   const [selectSortOrder,setSelectSortOrder] = useState('')
+  const [searchText, setSearchText]=useState('')
 
   return (
     <Grid templateAreas={{
@@ -25,7 +26,7 @@ function App() {
     }}
     >
       <GridItem area="nav">
-        <Navbar />
+        <Navbar OnsubmitSearch={(searchText)=>setSearchText(searchText)}/>
       </GridItem>
       <Show above='lg'>
         <GridItem area="aside" paddingX={4}>
@@ -33,11 +34,12 @@ function App() {
         </GridItem>
       </Show>
       <GridItem area="main" justifyContent={'space-between'}>
+      {searchText && <Heading paddingLeft={10} paddingY={5} fontSize={'2xl'}>Search result for : {searchText}</Heading>}
         <HStack spacing={5} paddingLeft={10}>
           <PlatformSelector selectedPlatform={selectedPlatform} onSelectPlatform={(platform)=>setSelectedPlatform(platform)} />
           <SortSelector sortOrderValue={selectSortOrder} onSelectSortOrder={(sortOrder)=>setSelectSortOrder(sortOrder)}/>
         </HStack>
-        <GameGrid selectdSortOrder={selectSortOrder} selectedPlatform={selectedPlatform} selectedGenre={selectedGenre}/>
+        <GameGrid searchText={searchText} selectdSortOrder={selectSortOrder} selectedPlatform={selectedPlatform} selectedGenre={selectedGenre}/>
       </GridItem>
     </Grid>
   )
