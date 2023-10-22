@@ -7,12 +7,13 @@ import { Text} from '@chakra-ui/react'
 
 interface Props{
   selectedGenre: Genre | null,
-  selectedPlatform: Platform | null
+  selectedPlatform: Platform | null,
+  selectdSortOrder: string
 }
 
 
-const GameGrid = ({selectedGenre,selectedPlatform}:Props) => {
-    const {data,error,isLoading}=useGames(selectedGenre,selectedPlatform)
+const GameGrid = ({selectedGenre,selectedPlatform,selectdSortOrder}:Props) => {
+    const {data,error,isLoading}=useGames(selectedGenre,selectedPlatform,selectdSortOrder)
     const skeleton=[1,2,3,4,5,6,7,8]
 
   return (
