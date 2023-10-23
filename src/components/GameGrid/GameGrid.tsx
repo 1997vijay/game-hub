@@ -17,14 +17,13 @@ const GameGrid = ({selectedGenre,selectedPlatform,selectdSortOrder,searchText}:P
     const {data,error,isLoading}=useGames(selectedGenre,selectedPlatform,selectdSortOrder,searchText)
     const skeleton=[1,2,3,4,5,6,7,8]
 
+    if(error) return <Text>{error}</Text>
+
   return (
-    <div>
-        {error && <p>{error}</p>}
         <SimpleGrid columns={{sm:1,md:2,lg:3,xl:4}} padding={10} spacing={4}>
             {isLoading && skeleton.map(s=><GameCardSkelaton key={s}/>)}
             {data.map(game=><GameCard key={game.id} game={game} />)}
         </SimpleGrid>
-    </div>
   )
 }
 

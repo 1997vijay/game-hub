@@ -7,6 +7,7 @@ import { Genre } from './hooks/use-Genre'
 import PlatformSelector from './components/PlateformSelector/PlatformSelector'
 import { Platform } from './hooks/useGames'
 import SortSelector from './components/PlateformSelector/SortSelector'
+import GameHeading from './components/GameHeading/GameHeading'
 
 
 function App() {
@@ -15,6 +16,8 @@ function App() {
   const [selectSortOrder,setSelectSortOrder] = useState('')
   const [searchText, setSearchText]=useState('')
 
+  const name=`${selectedPlatform?.name || ''} ${selectedGenre?.name || ''} Games`
+  
   return (
     <Grid templateAreas={{
       base: `"nav" "main"`, /* for small devices */
@@ -34,7 +37,7 @@ function App() {
         </GridItem>
       </Show>
       <GridItem area="main" justifyContent={'space-between'}>
-      {searchText && <Heading paddingLeft={10} paddingY={5} fontSize={'2xl'}>Search result for : {searchText}</Heading>}
+        <GameHeading headingText={name} searchText={searchText}/>
         <HStack spacing={5} paddingLeft={10}>
           <PlatformSelector selectedPlatform={selectedPlatform} onSelectPlatform={(platform)=>setSelectedPlatform(platform)} />
           <SortSelector sortOrderValue={selectSortOrder} onSelectSortOrder={(sortOrder)=>setSelectSortOrder(sortOrder)}/>
