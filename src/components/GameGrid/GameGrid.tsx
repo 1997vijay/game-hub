@@ -11,18 +11,19 @@ interface Props{
   selectedPlatform: Platform | null,
   selectdSortOrder: string,
   searchText:string,
-  selectPageNumber:number
+  selectPageNumber:number,
+  onLoadCount:(PageCount:number)=>void
 }
 
 
-const GameGrid = ({selectedGenre,selectedPlatform,selectdSortOrder,searchText,selectPageNumber}:Props) => {
-    const {data,error,isLoading}=useGames(selectedGenre,selectedPlatform,selectdSortOrder,searchText,selectPageNumber)
+const GameGrid = ({selectedGenre,selectedPlatform,selectdSortOrder,searchText,selectPageNumber,onLoadCount}:Props) => {
+    const {data,pageCount,error,isLoading}=useGames(selectedGenre,selectedPlatform,selectdSortOrder,searchText,selectPageNumber)
     const skeleton=[1,2,3,4,5,6,7,8]
 
     if(error) return <Text>{error}</Text>
 
   return (
-        <SimpleGrid columns={{sm:1,md:2,lg:3,xl:4}} padding={10} spacing={4}>
+        <SimpleGrid columns={{sm:1,md:2,lg:3,xl:4}} padding={10} spacing={4} onLoad={()=>onLoadCount(pageCount)}>
             {isLoading && skeleton.map(s=><GameCardSkelaton key={s}/>)}
             {data.map(game=><GameCard key={game.id} game={game} />)}
         </SimpleGrid>

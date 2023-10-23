@@ -17,6 +17,7 @@ function App() {
   const [selectSortOrder,setSelectSortOrder] = useState('')
   const [searchText, setSearchText]=useState('')
   const [pageNumber, setPageNumber] = useState(1);
+  const [pageCount,setPageCount]=useState(0)
 
   const handleNextPage = () => {
     setPageNumber(pageNumber + 1);
@@ -57,8 +58,8 @@ function App() {
           <PlatformSelector selectedPlatform={selectedPlatform} onSelectPlatform={(platform)=>setSelectedPlatform(platform)} />
           <SortSelector sortOrderValue={selectSortOrder} onSelectSortOrder={(sortOrder)=>setSelectSortOrder(sortOrder)}/>
         </HStack>
-        <GameGrid selectPageNumber={pageNumber} searchText={searchText} selectdSortOrder={selectSortOrder} selectedPlatform={selectedPlatform} selectedGenre={selectedGenre}/>
-        <NextPage onNext={handleNextPage} onPrevious={handlePreviousPage} isDisabled={pageNumber===1 ? true : false}/>
+        <GameGrid onLoadCount={(pageCount)=>setPageCount(pageCount)} selectPageNumber={pageNumber} searchText={searchText} selectdSortOrder={selectSortOrder} selectedPlatform={selectedPlatform} selectedGenre={selectedGenre}/>
+        <NextPage currentPageNumber={pageNumber} showPageCount={pageCount} onNext={handleNextPage} onPrevious={handlePreviousPage} isDisabled={pageNumber===1 ? true : false}/>
       </GridItem>
     </Grid>
   )
