@@ -5,7 +5,8 @@ import apiClient from "../services/api-client"
 export interface Details {
     id:number,
     name:string,
-    description_raw:string
+    description_raw:string,
+    website:string
 }
 
 const useDetails=(id:number)=> {

@@ -1,6 +1,6 @@
 
 import { Game } from '../../hooks/useGames'
-import { Card ,CardBody,HStack,Heading,Image,Text} from '@chakra-ui/react'
+import { Card ,CardBody,HStack,Heading,Image,Link,Text} from '@chakra-ui/react'
 import PlatformList from './PlatformList'
 import MetaCritic from '../MetaCritic/MetaCritic'
 import getCroppedImageUrl from '../../services/image-url'
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const GameCard = ({game}: Props) => {
-  // const {data}=useDetails(game.id)
+  const {data}=useDetails(game.id)
 
   return (
     <Card borderRadius={10} overflow={'hidden'}>
@@ -22,7 +22,7 @@ const GameCard = ({game}: Props) => {
               <MetaCritic score={game.metacritic} />
             </HStack>
             <Heading fontSize={'2xl'}>{game.name}</Heading>
-            {/* <Text paddingY={5}>{data?.description_raw}</Text> */}
+            <Text paddingY={5} fontWeight={'bold'}>Available on : <Link href={data?.website} isExternal>{data?.website}</Link></Text>
         </CardBody>
     </Card>
   )
