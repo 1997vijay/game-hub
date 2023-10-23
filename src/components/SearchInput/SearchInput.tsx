@@ -8,15 +8,17 @@ interface Props{
 
 const SearchInput = ({OnsubmitSearch}:Props) => {
     const ref=useRef<HTMLInputElement>(null)
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const searchText = event.target.value;
+      OnsubmitSearch(searchText); // pass the string
+    }
+
   return (
-    <form onSubmit={(event)=>{event.preventDefault()
-                    if (ref.current) OnsubmitSearch(ref.current?.value);}
-                    }>
         <InputGroup>
             <InputLeftElement children={<BsSearch />} />
-            <Input ref={ref} borderRadius={20} placeholder="Searc Games..." variant={'filled'} />
+            <Input onChange={handleChange} ref={ref} borderRadius={20} placeholder="Searc Games..." variant={'filled'} />
         </InputGroup>
-    </form>
   )
 }
 

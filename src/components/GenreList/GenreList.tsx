@@ -15,7 +15,7 @@ const GenreList = ({selectedGenre,onSelectGenre}:Props) => {
   return (
     <>
     <Heading fontSize={'2xl'} marginBottom={5} >Genres</Heading>
-    <List>
+    <List alignItems={'flex-start'}>
         {data.map(g=>
         <ListItem key={g.id} paddingY={'6px'} >
             <HStack>
