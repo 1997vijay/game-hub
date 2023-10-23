@@ -1,4 +1,4 @@
-import { Grid, GridItem,HStack,Heading,Show } from '@chakra-ui/react'
+import { Grid, GridItem,HStack,Heading,Show, SimpleGrid } from '@chakra-ui/react'
 import Navbar from './components/Navigation/Navbar'
 import GameGrid from './components/GameGrid/GameGrid'
 import GenreList from './components/GenreList/GenreList'
@@ -9,6 +9,7 @@ import { Platform } from './hooks/useGames'
 import SortSelector from './components/PlateformSelector/SortSelector'
 import GameHeading from './components/GameHeading/GameHeading'
 import NextPage from './components/LoadingNewPage/NextPage'
+import GenreSelector from './components/PlateformSelector/GenreSelector'
 
 
 function App() {
@@ -54,10 +55,11 @@ function App() {
       </Show>
       <GridItem area="main" justifyContent={'space-between'}>
         <GameHeading headingText={name} searchText={searchText}/>
-        <HStack spacing={5} paddingLeft={10}>
-          <PlatformSelector selectedPlatform={selectedPlatform} onSelectPlatform={(platform)=>setSelectedPlatform(platform)} />
-          <SortSelector sortOrderValue={selectSortOrder} onSelectSortOrder={(sortOrder)=>setSelectSortOrder(sortOrder)}/>
-        </HStack>
+          <SimpleGrid columns={{sm:1,md:2,lg:3,xl:4}} paddingX={5} paddingLeft={10} spacing={'10px'}>
+            <PlatformSelector selectedPlatform={selectedPlatform} onSelectPlatform={(platform)=>setSelectedPlatform(platform)} />
+            <SortSelector sortOrderValue={selectSortOrder} onSelectSortOrder={(sortOrder)=>setSelectSortOrder(sortOrder)}/>
+            <GenreSelector selectedGenre={selectedGenre} onSelectedGenre={(genre)=>setSelectedGenre(genre)}/>
+          </SimpleGrid>
         <GameGrid onLoadCount={(pageCount)=>setPageCount(pageCount)} selectPageNumber={pageNumber} searchText={searchText} selectdSortOrder={selectSortOrder} selectedPlatform={selectedPlatform} selectedGenre={selectedGenre}/>
         <NextPage currentPageNumber={pageNumber} showPageCount={pageCount} onNext={handleNextPage} onPrevious={handlePreviousPage} isDisabled={pageNumber===1 ? true : false}/>
       </GridItem>
