@@ -14,7 +14,7 @@ const NextPage = ({onNext,onPrevious,isDisabled,showPageCount,currentPageNumber}
         <Button onClick={()=>onPrevious()} leftIcon={<BsFillArrowLeftSquareFill/>} isDisabled={isDisabled}/>
         <Button onClick={()=>onNext()} rightIcon={<BsFillArrowRightSquareFill/>} />
     </ButtonGroup>
-    <Text marginRight={'100px'} fontSize={'20px'} fontWeight={'bold'} >Showing Page: {currentPageNumber} out of {showPageCount} pages.</Text>
+    <Text marginRight={'100px'}>Page: {currentPageNumber} / {showPageCount}</Text>
     </Flex>
   )
 }
