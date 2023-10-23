@@ -8,6 +8,7 @@ import PlatformSelector from './components/PlateformSelector/PlatformSelector'
 import { Platform } from './hooks/useGames'
 import SortSelector from './components/PlateformSelector/SortSelector'
 import GameHeading from './components/GameHeading/GameHeading'
+import NextPage from './components/LoadingNewPage/NextPage'
 
 
 function App() {
@@ -15,6 +16,20 @@ function App() {
   const [selectedPlatform, setSelectedPlatform]=useState<Platform | null>(null)
   const [selectSortOrder,setSelectSortOrder] = useState('')
   const [searchText, setSearchText]=useState('')
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const handleNextPage = () => {
+    setPageNumber(pageNumber + 1);
+    console.log(pageNumber)
+  };
+
+  const handlePreviousPage = () => {
+    if(pageNumber === 0) 
+      setPageNumber(1);
+    else 
+      setPageNumber(pageNumber - 1);
+    console.log(pageNumber)
+  };
 
   const name=`${selectedPlatform?.name || ''} ${selectedGenre?.name || ''} Games`
   
@@ -42,7 +57,8 @@ function App() {
           <PlatformSelector selectedPlatform={selectedPlatform} onSelectPlatform={(platform)=>setSelectedPlatform(platform)} />
           <SortSelector sortOrderValue={selectSortOrder} onSelectSortOrder={(sortOrder)=>setSelectSortOrder(sortOrder)}/>
         </HStack>
-        <GameGrid searchText={searchText} selectdSortOrder={selectSortOrder} selectedPlatform={selectedPlatform} selectedGenre={selectedGenre}/>
+        <GameGrid selectPageNumber={pageNumber} searchText={searchText} selectdSortOrder={selectSortOrder} selectedPlatform={selectedPlatform} selectedGenre={selectedGenre}/>
+        <NextPage onNext={handleNextPage} onPrevious={handlePreviousPage} isDisabled={pageNumber===1 ? true : false}/>
       </GridItem>
     </Grid>
   )

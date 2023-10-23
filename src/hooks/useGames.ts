@@ -16,13 +16,15 @@ export interface Game {
     rating_top:number
 }
 
-const useGames = (selectedGenre: Genre | null, selectedPlatform: Platform | null,selectdSortOrder:string,searchText:string) => useData<Game>('/games',{params:{
+const useGames = (selectedGenre: Genre | null, selectedPlatform: Platform | null,selectdSortOrder:string,searchText:string,selectPageNumber:number) => useData<Game>('/games',{params:{
                                                                                                             genres:selectedGenre?.id,
                                                                                                             platforms:selectedPlatform?.id,
                                                                                                             ordering: selectdSortOrder,
-                                                                                                            search: searchText
+                                                                                                            search: searchText,
+                                                                                                            page:selectPageNumber
+                                                                                                            
                                                                                                         }},
-                                                                                                    [ selectedGenre?.id,selectedPlatform?.id,selectdSortOrder,searchText ]
+                                                                                                    [ selectedGenre?.id,selectedPlatform?.id,selectdSortOrder,searchText,selectPageNumber]
                                                                                                     )
 
 export default useGames

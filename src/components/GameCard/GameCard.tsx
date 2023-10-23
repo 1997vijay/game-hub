@@ -14,7 +14,7 @@ const GameCard = ({game}: Props) => {
   // const {data}=useDetails(game.id)
 
   return (
-    <Card borderRadius={10} overflow={'hidden'} boxShadow={'dark-lg'}>
+    <Card borderRadius={10} overflow={'hidden'}>
         <Image src={getCroppedImageUrl(game.background_image)} />
         <CardBody>
             <HStack justifyContent={'space-between'} marginBottom={3}>

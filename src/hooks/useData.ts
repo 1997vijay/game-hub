@@ -5,7 +5,9 @@ import apiClient from "../services/api-client"
 
 interface FetchResponse<T> {
     count:number,
-    results:T[]
+    results:T[],
+    next:string,
+    previous:string
 }
 
 const useData=<T>(endpoint:string,requestConfig?:AxiosRequestConfig, deps?:any[])=>{
@@ -19,7 +21,8 @@ const useData=<T>(endpoint:string,requestConfig?:AxiosRequestConfig, deps?:any[]
         
         setLoading(true)
         apiClient.get<FetchResponse<T>>(endpoint,{signal:controller.signal, ...requestConfig})
-        .then(response=>{setData(response.data.results); setLoading(false)})
+        .then(response=>{setData(response.data.results);
+                         setLoading(false)})
         .catch(error=>{
             if(error instanceof CanceledError) return;
             setError(error.message); setLoading(false)})
